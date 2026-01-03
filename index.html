@@ -3,74 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The G.O.A.T. Comparison: MJ vs. LeBron</title>
+    <title>GOAT Analytics: Jordan vs LeBron</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>JORDAN <span class="vs">VS</span> LEBRON</h1>
-            <p>Pace-Adjusted Career Analysis (Per 100 Possessions)</p>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="stats-grid">
-            <div class="card mj-card">
-                <h3>Michael Jordan</h3>
-                <div class="big-stat">40.7</div>
-                <div class="label">PTS Per 100</div>
-                <div class="sub-stat">31.5 FGA Per 100</div>
+    <div class="dashboard-wrapper">
+        <header class="main-header">
+            <div class="logo">GOAT<span>OS</span>.v2</div>
+            <div class="title-wrap">
+                <h1>JORDAN <small>vs</small> LEBRON</h1>
+                <p>PACE-ADJUSTED IMPACT ANALYSIS [PER 100 POSSESSIONS]</p>
             </div>
-            <div class="card lbj-card">
-                <h3>LeBron James</h3>
-                <div class="big-stat">34.5</div>
-                <div class="label">PTS Per 100</div>
-                <div class="sub-stat">25.1 FGA Per 100</div>
+        </header>
+
+        <section class="hero-stats">
+            <div class="legend-card mj">
+                <span class="player-label">MICHAEL JORDAN</span>
+                <div class="stat-main">
+                    <h2 id="mj-pts-avg">--.-</h2>
+                    <label>PTS / 100</label>
+                </div>
+                <div class="mini-grid">
+                    <div class="mini-item"><span>AST</span><b id="mj-ast-avg">--.-</b></div>
+                    <div class="mini-item"><span>REB</span><b id="mj-reb-avg">--.-</b></div>
+                    <div class="mini-item"><span>STL</span><b id="mj-stl-avg">--.-</b></div>
+                </div>
+            </div>
+
+            <div class="center-radar">
+                <canvas id="archetypeRadar"></canvas>
+            </div>
+
+            <div class="legend-card lbj">
+                <span class="player-label">LEBRON JAMES</span>
+                <div class="stat-main">
+                    <h2 id="lbj-pts-avg">--.-</h2>
+                    <label>PTS / 100</label>
+                </div>
+                <div class="mini-grid">
+                    <div class="mini-item"><span>AST</span><b id="lbj-ast-avg">--.-</b></div>
+                    <div class="mini-item"><span>REB</span><b id="lbj-reb-avg">--.-</b></div>
+                    <div class="mini-item"><span>STL</span><b id="lbj-stl-avg">--.-</b></div>
+                </div>
             </div>
         </section>
 
-        <section class="charts-grid">
-            
-            <div class="card chart-container">
-                <h2>Player Archetype</h2>
-                <p class="subtitle">Comparing versatility across major categories</p>
-                <canvas id="archetypeChart"></canvas>
+        <section class="data-grid">
+            <div class="chart-box">
+                <h3>Playmaking & Impact</h3>
+                <p class="desc">Assists, Rebounds, and Steals comparison.</p>
+                <canvas id="impactChart"></canvas>
             </div>
-
-            <div class="card chart-container">
-                <h2>Shooting Efficiency</h2>
-                <p class="subtitle">Field Goal % and 3-Point %</p>
-                <canvas id="efficiencyChart"></canvas>
+            <div class="chart-box">
+                <h3>Shooting Efficiency</h3>
+                <p class="desc">Comparison of overall FG% and 3PT%.</p>
+                <canvas id="efficiencyBars"></canvas>
             </div>
-
-            <div class="card chart-container full-width">
-                <h2>3-Point Volume Evolution</h2>
-                <p class="subtitle">3PA Per 100 Possessions over Career Timeline</p>
-                <canvas id="volumeChart"></canvas>
+            <div class="chart-box">
+                <h3>Scoring Consistency</h3>
+                <p class="desc">Lower Std Dev = Higher Reliability.</p>
+                <canvas id="consistencyChart"></canvas>
             </div>
-
         </section>
 
-        <section class="analysis-text card">
-            <h2>Analytical Conclusion</h2>
-            <p>
-                Based on the pace-adjusted analysis (normalizing to 100 possessions), <strong>Michael Jordan</strong> operates as a high-volume master scorer, averaging <strong>6 more points</strong> per 100 possessions than James, while attempting significantly more shots (31.5 FGA vs 25.1 FGA).
-            </p>
-            <p>
-                <strong>LeBron James</strong> demonstrates a more balanced archetype. While his scoring volume is lower, he acts as a primary facilitator, averaging nearly <strong>3 more assists</strong> per 100 possessions. His 3-point volume (6.3 attempts/100) reflects the modern NBA era, significantly overshadowing Jordan's era-specific 3-point usage (2.2 attempts/100).
-            </p>
+        <section class="timeline-section">
+            <div class="timeline-box">
+                <h3>Scoring Evolution (PTS/100)</h3>
+                <canvas id="ptsEvolution"></canvas>
+            </div>
+            <div class="timeline-box">
+                <h3>Era Comparison: 3PA Frequency</h3>
+                <canvas id="threeEvolution"></canvas>
+            </div>
         </section>
-    </main>
-
-    <footer>
-        <p>Data Source: NBA API | Analysis Generated by Python & Pandas</p>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>

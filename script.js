@@ -1,135 +1,121 @@
-// Global Defaults
-Chart.defaults.color = '#a0a0a0';
-Chart.defaults.font.family = "'Roboto', sans-serif";
+const MJ_RED = '#ff3c5f';
+const LBJ_GOLD = '#fdb927';
 
-const MJ_COLOR = 'rgba(206, 17, 65, 0.8)'; // Bulls Red
-const MJ_BORDER = 'rgba(206, 17, 65, 1)';
-const LBJ_COLOR = 'rgba(85, 37, 131, 0.8)'; // Lakers Purple
-const LBJ_BORDER = 'rgba(85, 37, 131, 1)';
+// Chart Global Defaults
+Chart.defaults.color = '#9499ad';
+Chart.defaults.font.family = "'Inter', sans-serif";
 
-// 1. Radar Chart: Player Archetype (Data from Summary Table)
-const ctxArchetype = document.getElementById('archetypeChart').getContext('2d');
-new Chart(ctxArchetype, {
-    type: 'radar',
-    data: {
-        labels: ['Scoring (PTS)', 'Playmaking (AST)', 'Rebounding (REB)', 'Defense (STL)', 'Volume (FGA)'],
-        datasets: [{
-            label: 'Michael Jordan',
-            // Data normalized roughly to a 0-100 scale based on max values in history for visualization
-            data: [95, 65, 70, 95, 98], 
-            backgroundColor: 'rgba(206, 17, 65, 0.2)',
-            borderColor: MJ_BORDER,
-            pointBackgroundColor: MJ_BORDER,
-            borderWidth: 2
-        }, {
-            label: 'LeBron James',
-            data: [85, 90, 85, 60, 78],
-            backgroundColor: 'rgba(85, 37, 131, 0.2)',
-            borderColor: LBJ_BORDER,
-            pointBackgroundColor: LBJ_BORDER,
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            r: {
-                angleLines: { color: '#333' },
-                grid: { color: '#333' },
-                pointLabels: { color: '#fff', font: { size: 12 } },
-                suggestedMin: 0,
-                suggestedMax: 100,
-                ticks: { display: false }
+async function initDashboard() {
+    try {
+        const response = await fetch('stats_data.json');
+        const data = await response.json();
+
+        // Mapping Indices: 0:PTS, 1:AST, 2:REB, 3:STL, 4:FGA, 5:3PA, 6:FG%, 7:3PT%
+        const mj = data.jordan_mean;
+        const lbj = data.lebron_mean;
+        const mjStd = data.jordan_std;
+        const lbjStd = data.lebron_std;
+
+        // --- 1. Top Cards Update ---
+        document.getElementById('mj-pts-avg').innerText = mj[0].toFixed(1);
+        document.getElementById('mj-ast-avg').innerText = mj[1].toFixed(1);
+        document.getElementById('mj-reb-avg').innerText = mj[2].toFixed(1);
+        document.getElementById('mj-stl-avg').innerText = mj[3].toFixed(1);
+
+        document.getElementById('lbj-pts-avg').innerText = lbj[0].toFixed(1);
+        document.getElementById('lbj-ast-avg').innerText = lbj[1].toFixed(1);
+        document.getElementById('lbj-reb-avg').innerText = lbj[2].toFixed(1);
+        document.getElementById('lbj-stl-avg').innerText = lbj[3].toFixed(1);
+
+        // --- 2. IMPACT CHART (New: AST, REB, STL Comparison) ---
+        new Chart(document.getElementById('impactChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Assists', 'Rebounds', 'Steals'],
+                datasets: [
+                    { label: 'Jordan', data: [mj[1], mj[2], mj[3]], backgroundColor: MJ_RED, borderRadius: 6 },
+                    { label: 'LeBron', data: [lbj[1], lbj[2], lbj[3]], backgroundColor: LBJ_GOLD, borderRadius: 6 }
+                ]
+            },
+            options: {
+                plugins: { legend: { position: 'bottom' } },
+                scales: { y: { grid: { color: '#2d2f3d' } } }
             }
-        },
-        plugins: {
-            legend: { position: 'bottom' }
-        }
-    }
-});
+        });
 
-// 2. Bar Chart: Efficiency (Data from Notebook Output)
-const ctxEff = document.getElementById('efficiencyChart').getContext('2d');
-new Chart(ctxEff, {
-    type: 'bar',
-    data: {
-        labels: ['Field Goal %', '3-Point %'],
-        datasets: [{
-            label: 'Michael Jordan',
-            data: [49, 28], // From notebook average
-            backgroundColor: MJ_COLOR,
-            borderColor: MJ_BORDER,
-            borderWidth: 1
-        }, {
-            label: 'LeBron James',
-            data: [51, 35], // From notebook average
-            backgroundColor: LBJ_COLOR,
-            borderColor: LBJ_BORDER,
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: { color: '#333' },
-                max: 60
+        // --- 3. Archetype Radar ---
+        new Chart(document.getElementById('archetypeRadar'), {
+            type: 'radar',
+            data: {
+                labels: ['Scoring', 'Playmaking', 'Rebounding', 'Defense', 'Efficiency'],
+                datasets: [
+                    { label: 'Jordan', data: [mj[0], mj[1]*4, mj[2]*4, mj[3]*12, mj[6]*80], borderColor: MJ_RED, backgroundColor: 'rgba(255, 60, 95, 0.2)', borderWidth: 2 },
+                    { label: 'LeBron', data: [lbj[0], lbj[1]*4, lbj[2]*4, lbj[3]*12, lbj[6]*80], borderColor: LBJ_GOLD, backgroundColor: 'rgba(253, 185, 39, 0.2)', borderWidth: 2 }
+                ]
             },
-            x: { grid: { display: false } }
-        },
-        plugins: {
-            legend: { position: 'bottom' }
-        }
-    }
-});
+            options: {
+                elements: { line: { tension: 0.1 } },
+                scales: { r: { display: false } },
+                plugins: { legend: { display: false } }
+            }
+        });
 
-// 3. Line Chart: 3-Point Volume Evolution (Data from Notebook Output)
-// We simplify the years to "Year 1, Year 2" for direct comparison
-const careerLength = 15; // Comparing first 15 years for parity
-const years = Array.from({length: careerLength}, (_, i) => `Year ${i + 1}`);
-
-// MJ Data extracted from the 3PT table
-const mj3PA = [0.9, 2.1, 1.0, 0.8, 1.6, 4.0, 1.6, 1.7, 3.9, 2.5, 4.4, 5.0, 2.1, 1.3, 0.9];
-// LBJ Data extracted from the 3PT table (first 15 years)
-const lbj3PA = [3.4, 4.4, 5.4, 4.7, 5.7, 6.1, 6.3, 4.4, 3.1, 4.3, 5.1, 6.6, 5.0, 5.9, 6.5];
-
-const ctxVol = document.getElementById('volumeChart').getContext('2d');
-new Chart(ctxVol, {
-    type: 'line',
-    data: {
-        labels: years,
-        datasets: [{
-            label: 'Jordan (3PA per 100)',
-            data: mj3PA,
-            borderColor: MJ_BORDER,
-            backgroundColor: MJ_COLOR,
-            tension: 0.4,
-            borderWidth: 3
-        }, {
-            label: 'LeBron (3PA per 100)',
-            data: lbj3PA,
-            borderColor: LBJ_BORDER,
-            backgroundColor: LBJ_COLOR,
-            tension: 0.4,
-            borderWidth: 3
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: { color: '#333' },
-                title: { display: true, text: 'Attempts Per 100 Possessions' }
+        // --- 4. Efficiency Bars (FG% & 3PT%) ---
+        new Chart(document.getElementById('efficiencyBars'), {
+            type: 'bar',
+            data: {
+                labels: ['Field Goal %', '3PT %'],
+                datasets: [
+                    { label: 'MJ', data: [(mj[6]*100).toFixed(1), (mj[7]*100).toFixed(1)], backgroundColor: MJ_RED, borderRadius: 6 },
+                    { label: 'LBJ', data: [(lbj[6]*100).toFixed(1), (lbj[7]*100).toFixed(1)], backgroundColor: LBJ_GOLD, borderRadius: 6 }
+                ]
             },
-            x: { grid: { color: '#333' } }
-        },
-        plugins: {
-            legend: { position: 'top' }
+            options: { scales: { y: { max: 100 } } }
+        });
+
+        // --- 5. Consistency Chart (Std Dev of PTS) ---
+        new Chart(document.getElementById('consistencyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['PTS Consistency'],
+                datasets: [
+                    { label: 'MJ (Variation)', data: [mjStd[0]], backgroundColor: MJ_RED },
+                    { label: 'LBJ (Variation)', data: [lbjStd[0]], backgroundColor: LBJ_GOLD }
+                ]
+            }
+        });
+
+        // --- 6. Evolution Charts ---
+        if (data.timeline) {
+            const years = data.timeline.years;
+            
+            // PTS Evolution
+            new Chart(document.getElementById('ptsEvolution'), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        { label: 'MJ', data: data.timeline.mj.pts_100, borderColor: MJ_RED, tension: 0.3, pointRadius: 0 },
+                        { label: 'LBJ', data: data.timeline.lbj.pts_100, borderColor: LBJ_GOLD, tension: 0.3, pointRadius: 0 }
+                    ]
+                }
+            });
+
+            // 3PA Evolution
+            new Chart(document.getElementById('threeEvolution'), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        { label: 'MJ', data: data.timeline.mj['3pa_100'], borderColor: MJ_RED, tension: 0.3, pointRadius: 0 },
+                        { label: 'LBJ', data: data.timeline.lbj['3pa_100'], borderColor: LBJ_GOLD, tension: 0.3, pointRadius: 0 }
+                    ]
+                }
+            });
         }
+    } catch (e) {
+        console.error("Dashboard Sync Error:", e);
     }
-});
+}
+
+initDashboard();
