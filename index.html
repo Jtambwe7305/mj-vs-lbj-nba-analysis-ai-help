@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
     <div class="dashboard-wrapper">
         <header class="main-header">
             <div class="logo">GOAT<span>OS</span>.v2</div>
@@ -22,27 +21,17 @@
         <section class="hero-stats">
             <div class="legend-card mj">
                 <span class="player-label">MICHAEL JORDAN</span>
-                <div class="stat-main">
-                    <h2 id="mj-pts-avg">--.-</h2>
-                    <label>PTS / 100</label>
-                </div>
+                <div class="stat-main"><h2 id="mj-pts-avg">--.-</h2><label>PTS / 100</label></div>
                 <div class="mini-grid">
                     <div class="mini-item"><span>AST</span><b id="mj-ast-avg">--.-</b></div>
                     <div class="mini-item"><span>REB</span><b id="mj-reb-avg">--.-</b></div>
                     <div class="mini-item"><span>STL</span><b id="mj-stl-avg">--.-</b></div>
                 </div>
             </div>
-
-            <div class="center-radar">
-                <canvas id="archetypeRadar"></canvas>
-            </div>
-
+            <div class="vs-badge">VS</div>
             <div class="legend-card lbj">
                 <span class="player-label">LEBRON JAMES</span>
-                <div class="stat-main">
-                    <h2 id="lbj-pts-avg">--.-</h2>
-                    <label>PTS / 100</label>
-                </div>
+                <div class="stat-main"><h2 id="lbj-pts-avg">--.-</h2><label>PTS / 100</label></div>
                 <div class="mini-grid">
                     <div class="mini-item"><span>AST</span><b id="lbj-ast-avg">--.-</b></div>
                     <div class="mini-item"><span>REB</span><b id="lbj-reb-avg">--.-</b></div>
@@ -53,34 +42,34 @@
 
         <section class="data-grid">
             <div class="chart-box">
-                <h3>Playmaking & Impact</h3>
-                <p class="desc">Assists, Rebounds, and Steals comparison.</p>
-                <canvas id="impactChart"></canvas>
+                <h3>3pt Precision</h3>
+                <canvas id="threePrecisionChart"></canvas>
             </div>
             <div class="chart-box">
-                <h3>Shooting Efficiency</h3>
-                <p class="desc">Comparison of overall FG% and 3PT%.</p>
+                <h3>Free Throw Consistency</h3>
+                <canvas id="ftConsistencyChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>Overall Efficiency</h3>
                 <canvas id="efficiencyBars"></canvas>
-            </div>
-            <div class="chart-box">
-                <h3>Scoring Consistency</h3>
-                <p class="desc">Lower Std Dev = Higher Reliability.</p>
-                <canvas id="consistencyChart"></canvas>
             </div>
         </section>
 
         <section class="timeline-section">
             <div class="timeline-box">
-                <h3>Scoring Evolution (PTS/100)</h3>
+                <h3>Scoring Evolution</h3>
                 <canvas id="ptsEvolution"></canvas>
             </div>
             <div class="timeline-box">
-                <h3>Era Comparison: 3PA Frequency</h3>
+                <h3>FT Efficiency Evolution</h3>
+                <canvas id="ftEvolution"></canvas>
+            </div>
+            <div class="timeline-box">
+                <h3>3PA Frequency</h3>
                 <canvas id="threeEvolution"></canvas>
             </div>
         </section>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
