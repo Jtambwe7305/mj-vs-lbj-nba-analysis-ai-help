@@ -83,8 +83,8 @@ async function initDashboard() {
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'MJ', data: data.timeline.mj.pts_36, borderColor: MJ_RED, tension: 0.3, fill: false },
-                        { label: 'LBJ', data: data.timeline.lbj.pts_36, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
+                        { label: 'MJ', data: data.timeline.mj.ft_pct, borderColor: MJ_RED, tension: 0.3, fill: false },
+                        { label: 'LBJ', data: data.timeline.lbj.ft_pct, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
                     ]
                 }
             });
