@@ -19,11 +19,14 @@ async function initDashboard() {
         document.getElementById('mj-ast-avg').innerText = mj[1].toFixed(1);
         document.getElementById('mj-reb-avg').innerText = mj[2].toFixed(1);
         document.getElementById('mj-stl-avg').innerText = mj[3].toFixed(1);
+        document.getElementById('mj-blk-avg').innerText = mj[4].toFixed(1);
+
 
         document.getElementById('lbj-pts-avg').innerText = lbj[0].toFixed(1);
         document.getElementById('lbj-ast-avg').innerText = lbj[1].toFixed(1);
         document.getElementById('lbj-reb-avg').innerText = lbj[2].toFixed(1);
         document.getElementById('lbj-stl-avg').innerText = lbj[3].toFixed(1);
+        document.getElementById('lbj-blk-avg').innerText = lbj[4].toFixed(1);
 
         // 3pt Precision Bar Chart (Index 7: FG3_PCT)
         new Chart(document.getElementById('threePrecisionChart'), {
@@ -71,8 +74,8 @@ async function initDashboard() {
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'MJ', data: data.timeline.mj.pts_100, borderColor: MJ_RED, tension: 0.3, fill: false },
-                        { label: 'LBJ', data: data.timeline.lbj.pts_100, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
+                        { label: 'MJ', data: data.timeline.mj.PPG, borderColor: MJ_RED, tension: 0.3, fill: false },
+                        { label: 'LBJ', data: data.timeline.lbj.PPG, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
                     ]
                 }
             });
@@ -83,8 +86,8 @@ async function initDashboard() {
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'MJ', data: data.timeline.mj.ft_pct, borderColor: MJ_RED, tension: 0.3, fill: false },
-                        { label: 'LBJ', data: data.timeline.lbj.ft_pct, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
+                        { label: 'MJ', data: data.timeline.mj.FT_PCT, borderColor: MJ_RED, tension: 0.3, fill: false },
+                        { label: 'LBJ', data: data.timeline.lbj.FT_PCT, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
                     ]
                 }
             });
@@ -95,8 +98,8 @@ async function initDashboard() {
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'MJ', data: data.timeline.mj['3pa_100'], borderColor: MJ_RED, tension: 0.3, fill: false },
-                        { label: 'LBJ', data: data.timeline.lbj['3pa_100'], borderColor: LBJ_GOLD, tension: 0.3, fill: false }
+                        { label: 'MJ', data: data.timeline.mj['FG3A_PG'], borderColor: MJ_RED, tension: 0.3, fill: false },
+                        { label: 'LBJ', data: data.timeline.lbj['FG3_PG'], borderColor: LBJ_GOLD, tension: 0.3, fill: false }
                     ]
                 }
             });
