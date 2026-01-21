@@ -58,8 +58,8 @@ async function initDashboard() {
             data: {
                 labels: ['FG%', '3PT%'],
                 datasets: [
-                    { label: 'MJ', data: [mj[6]*100, mj[7]*100], backgroundColor: MJ_RED },
-                    { label: 'LBJ', data: [lbj[6]*100, lbj[7]*100], backgroundColor: LBJ_GOLD }
+                    { label: 'MJ', data: [mj[6], mj[7]], backgroundColor: MJ_RED },
+                    { label: 'LBJ', data: [lbj[6], lbj[7]], backgroundColor: LBJ_GOLD }
                 ]
             }
         });
@@ -98,8 +98,8 @@ async function initDashboard() {
                 data: {
                     labels: years,
                     datasets: [
-                        { label: 'MJ', data: data.timeline.mj['FG3A_PG'], borderColor: MJ_RED, tension: 0.3, fill: false },
-                        { label: 'LBJ', data: data.timeline.lbj['FG3_PG'], borderColor: LBJ_GOLD, tension: 0.3, fill: false }
+                        { label: 'MJ', data: data.timeline.mj.FG3A_PG, borderColor: MJ_RED, tension: 0.3, fill: false },
+                        { label: 'LBJ', data: data.timeline.lbj.FG3A_PG, borderColor: LBJ_GOLD, tension: 0.3, fill: false }
                     ]
                 }
             });
