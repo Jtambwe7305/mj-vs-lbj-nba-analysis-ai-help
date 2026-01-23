@@ -15,27 +15,27 @@ async function initDashboard() {
         const lbjStd = data.lebron_std;
 
         // Top Cards
-        document.getElementById('mj-pts-avg').innerText = mj[0].toFixed(1);
-        document.getElementById('mj-ast-avg').innerText = mj[1].toFixed(1);
-        document.getElementById('mj-reb-avg').innerText = mj[2].toFixed(1);
-        document.getElementById('mj-stl-avg').innerText = mj[3].toFixed(1);
-        document.getElementById('mj-blk-avg').innerText = mj[4].toFixed(1);
+        document.getElementById('mj-pts-avg').innerText = mj[1].toFixed(1);
+        document.getElementById('mj-ast-avg').innerText = mj[2].toFixed(1);
+        document.getElementById('mj-reb-avg').innerText = mj[3].toFixed(1);
+        document.getElementById('mj-stl-avg').innerText = mj[4].toFixed(1);
+        document.getElementById('mj-blk-avg').innerText = mj[5].toFixed(1);
 
 
-        document.getElementById('lbj-pts-avg').innerText = lbj[0].toFixed(1);
-        document.getElementById('lbj-ast-avg').innerText = lbj[1].toFixed(1);
-        document.getElementById('lbj-reb-avg').innerText = lbj[2].toFixed(1);
-        document.getElementById('lbj-stl-avg').innerText = lbj[3].toFixed(1);
-        document.getElementById('lbj-blk-avg').innerText = lbj[4].toFixed(1);
+        document.getElementById('lbj-pts-avg').innerText = lbj[1].toFixed(1);
+        document.getElementById('lbj-ast-avg').innerText = lbj[2].toFixed(1);
+        document.getElementById('lbj-reb-avg').innerText = lbj[3].toFixed(1);
+        document.getElementById('lbj-stl-avg').innerText = lbj[4].toFixed(1);
+        document.getElementById('lbj-blk-avg').innerText = lbj[5].toFixed(1);
 
         // 3pt Precision Bar Chart (Index 7: FG3_PCT)
-        new Chart(document.getElementById('threePrecisionChart'), {
+        new Chart(document.getElementById('Points Total'), {
             type: 'bar',
             data: {
-                labels: ['3PT%'],
+                labels: ['Career Points'],
                 datasets: [
-                    { label: 'MJ', data: [mj[7] * 100], backgroundColor: MJ_RED },
-                    { label: 'LBJ', data: [lbj[7] * 100], backgroundColor: LBJ_GOLD }
+                    { label: 'MJ', data: [mj[0]], backgroundColor: MJ_RED },
+                    { label: 'LBJ', data: [lbj[0]], backgroundColor: LBJ_GOLD }
                 ]
             }
         });
