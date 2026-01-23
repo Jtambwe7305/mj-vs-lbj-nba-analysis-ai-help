@@ -14,7 +14,6 @@ async function initDashboard() {
         const mjStd = data.jordan_std;
         const lbjStd = data.lebron_std;
 
-        // Top Cards
         document.getElementById('mj-pts-avg').innerText = mj[1].toFixed(1);
         document.getElementById('mj-ast-avg').innerText = mj[2].toFixed(1);
         document.getElementById('mj-reb-avg').innerText = mj[3].toFixed(1);
@@ -28,7 +27,6 @@ async function initDashboard() {
         document.getElementById('lbj-stl-avg').innerText = lbj[4].toFixed(1);
         document.getElementById('lbj-blk-avg').innerText = lbj[5].toFixed(1);
 
-        // 3pt Precision Bar Chart (Index 7: FG3_PCT)
         new Chart(document.getElementById('Points Total'), {
             type: 'bar',
             data: {
@@ -40,7 +38,6 @@ async function initDashboard() {
             }
         });
 
-        // FT Consistency Bar Chart (Standard Deviation of FT% - Index 6: FG_PCT used as proxy)
         new Chart(document.getElementById('ftConsistencyChart'), {
             type: 'bar',
             data: {
@@ -52,7 +49,6 @@ async function initDashboard() {
             }
         });
 
-        // Efficiency Bars
         new Chart(document.getElementById('efficiencyBars'), {
             type: 'bar',
             data: {
@@ -64,11 +60,9 @@ async function initDashboard() {
             }
         });
 
-        // Evolution Charts (The actual lines)
         if (data.timeline) {
             const years = data.timeline.years;
-            
-            // Scoring Evolution Line
+
             new Chart(document.getElementById('ptsEvolution'), {
                 type: 'line',
                 data: {
@@ -80,7 +74,6 @@ async function initDashboard() {
                 }
             });
 
-            // FT Efficiency Evolution Line (Using pts_36 as proxy for consistency over time)
             new Chart(document.getElementById('ftEvolution'), {
                 type: 'line',
                 data: {
@@ -92,7 +85,6 @@ async function initDashboard() {
                 }
             });
 
-            // 3PA Frequency Evolution Line
             new Chart(document.getElementById('threeEvolution'), {
                 type: 'line',
                 data: {
