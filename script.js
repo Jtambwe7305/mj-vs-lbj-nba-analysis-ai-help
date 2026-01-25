@@ -14,18 +14,18 @@ async function initDashboard() {
         const mjStd = data.jordan_std;
         const lbjStd = data.lebron_std;
 
-        document.getElementById('mj-pts-avg').innerText = mj[1].toFixed(1);
-        document.getElementById('mj-ast-avg').innerText = mj[2].toFixed(1);
-        document.getElementById('mj-reb-avg').innerText = mj[3].toFixed(1);
-        document.getElementById('mj-stl-avg').innerText = mj[4].toFixed(1);
-        document.getElementById('mj-blk-avg').innerText = mj[5].toFixed(1);
+        document.getElementById('mj-pts-avg').innerText = mj[0].toFixed(1);
+        document.getElementById('mj-ast-avg').innerText = mj[1].toFixed(1);
+        document.getElementById('mj-reb-avg').innerText = mj[2].toFixed(1);
+        document.getElementById('mj-stl-avg').innerText = mj[3].toFixed(1);
+        document.getElementById('mj-blk-avg').innerText = mj[4].toFixed(1);
 
 
-        document.getElementById('lbj-pts-avg').innerText = lbj[1].toFixed(1);
-        document.getElementById('lbj-ast-avg').innerText = lbj[2].toFixed(1);
-        document.getElementById('lbj-reb-avg').innerText = lbj[3].toFixed(1);
-        document.getElementById('lbj-stl-avg').innerText = lbj[4].toFixed(1);
-        document.getElementById('lbj-blk-avg').innerText = lbj[5].toFixed(1);
+        document.getElementById('lbj-pts-avg').innerText = lbj[0].toFixed(1);
+        document.getElementById('lbj-ast-avg').innerText = lbj[1].toFixed(1);
+        document.getElementById('lbj-reb-avg').innerText = lbj[2].toFixed(1);
+        document.getElementById('lbj-stl-avg').innerText = lbj[3].toFixed(1);
+        document.getElementById('lbj-blk-avg').innerText = lbj[4].toFixed(1);
 
         new Chart(document.getElementById('Points Total'), {
             type: 'bar',
