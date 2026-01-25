@@ -1,4 +1,4 @@
-const MJ_RED = '#ff3c5f';
+const MJ_RED = '#f42a2ab8';
 const LBJ_GOLD = '#fdb927';
 
 Chart.defaults.color = '#9499ad';
